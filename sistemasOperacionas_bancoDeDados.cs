@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-
+using System.IO
+Dicionario<int,string> db;
 
 #region File Mangement
 
@@ -24,19 +25,21 @@ using System.Text.Json.Serialization;
 
 #region Runtime Behaviour
 
-    Dicionario<int, string> dic = new Dicionario<int, string>(6); 
-
-    for (int i = 1; i < Environment.GetCommandLineArgs().Length; i++)
+if(args.lenght > 0)
+{
+    for(int i = 1;i < args.lenght - 2; i++)
     {
-        switch (Environment.GetCommandLineArgs()[i])
+        switch (args[i])
         {
-            case "--add":
-                int a = int.Parse(Environment.GetCommandLineArgs()[i + 1]);
-                int b = int.Parse(Environment.GetCommandLineArgs()[i + 2]);
-                Console.WriteLine(a + b);
-                break;
+            case "-cache": db = new Dicionario<int, string>(args[i+1]);i++; break;
+            case "--insert": db.Adicionar(i+1,i+2);i+=2;break;
+            case "--remove": db.Remover(i+1);i++;break;
+            case "--search": if(db.Pesquisar(i+1) != -1) { Console.WriteLine(vlores[db.Pesquisar(i + 1)] ; } i + 1; break;
+            case "--update": db.Atualiza(i+1,i+2);i+=2; break;
         }
     }
+}
+
 
 #endregion
 
